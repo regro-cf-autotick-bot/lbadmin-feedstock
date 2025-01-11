@@ -7,11 +7,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/LbAdmin-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/LbAdmin-{{ version }}.tar.gz
   sha256: 0b7155604e70609f36f5e16b2b1b363233939ae30c70e5a6f955d2be7a538d3b
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - lb-release-rpm=LbAdmin.RpmRelease:release
@@ -26,13 +26,13 @@ requirements:
   host:
     - nose >=1.0
     - pip
-    - python <4.0
+    - python {{ python_min }}
     - setuptools_scm
   run:
     - lbcommon
     - lbinstall
     - lbsoftconfdb2clients
-    - python <4.0
+    - python >={{ python_min }},<4.0
     - six
 
 test:
@@ -42,6 +42,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://gitlab.cern.ch/lhcb-core/LbAdmin
